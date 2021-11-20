@@ -6,7 +6,7 @@ RUN pip3 install --upgrade pip \
 
 
 
-FROM base as development
+FROM base as developments
 RUN apt-get update -y \ 
     && apt-get install git gcc -y \
     && pip3 install pep8 pytest coverage
