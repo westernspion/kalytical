@@ -1,9 +1,6 @@
 # kalytical
 
-Committing to trunk for now  
-
 Something I'm playing with as a means to declaratively orchestrate pipelines, and manage them, on top of Kubernetes  
-[Mainfesto](Manifesto.md)
 
 ## Goals:  
 I want to improve data engineer, ETL engineer or data scientit/analyst productivity by streamlining the creation and deployment process of data pipelines.  
