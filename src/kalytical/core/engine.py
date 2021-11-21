@@ -30,7 +30,7 @@ class EngineManager():
 
     def engine_factory(self, engine_type: str) -> Any:
         if engine_type == 'K8sPodEngine':
-            return K8sPodEngine():
+            return K8sPodEngine()
 
         raise NotImplementedError(
             f"This particular engine={engine_type} has not been implemented")
