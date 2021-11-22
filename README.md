@@ -1,8 +1,12 @@
+An event drive, asynchronous job scheduling system that is Kubernetes native.  
+Original use case is to drive data pipeline execution and on-the-fly dependency resolution (DAGS) via configuration, rather than through static dags that are linked to a particular programming language  
+
+
 TODO: 
 * Create CLI Kaly  
 * Refactor to use rabbit MQ  
 * Include jupyerlab and sample notebooks for people to poke around  
-* Explain event driven model  
+* Docs
 * Abstract out IDP  
 * Add mongodb image  
 * Terraform stack for cloud assets  
@@ -18,4 +22,4 @@ TODO:
 
 * Addendums for productionalization  
 * Switch from pipeline to job nomenclature
-
+* Gettings started dev
