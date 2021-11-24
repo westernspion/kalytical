@@ -1,13 +1,16 @@
 version: "3.4"
 services:
-  facade:
+  kalytical:
     environment:
       - MONGO_HOST=mongo_db:27017
     build:
-      context: ./src/kalytical/facade
-  mongo_db:
-    image: mongo:3.6
-    expose:
-      - "27017"
+      context: ./
+      target: deployment
     ports:
-      - "27017:27017"
+      - 8008:8008
+  # mongo_db:
+  #   image: mongo:3.6
+  #   expose:
+  #     - "27017"
+  #   ports:
+  #     - "27017:27017"

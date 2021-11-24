@@ -16,7 +16,7 @@ class JobLifecycleEventBody(BaseModel):
         valid_values = ['success', 'failure',
                         'running', 'origination', 'submitted']
         if v.lower() not in valid_values:
-            raiuse ValueError(f"event_type must be in {valid_values}")
+            raise ValueError(f"event_type must be in {valid_values}")
         return v.lower()
 
 
@@ -34,7 +34,7 @@ class LifecycleEventModel(BaseModel):
 
 class RunningPipelineModel(BaseModel):
     pipeline_uuid: Optional[str] = None
-    exec_uuid: Optionalp[str] = None
+    exec_uuid: Optional[str] = None
     engine: Optional[str] = None
     engine_tracking_id: Optional[str] = None
     engine_status: str = None
@@ -45,7 +45,7 @@ class RunningPipelineModel(BaseModel):
     def validate_engine_status(cls, v):
         valid_values = ['success', 'running', 'failed', 'aborted', 'timed_out']
         if v.lower() not in valid_values:
-            raise ValueError(f"engine_status must be in {valid_values")
+            raise ValueError(f"engine_status must be in {valid_values}")
         return v.lower()
 
 

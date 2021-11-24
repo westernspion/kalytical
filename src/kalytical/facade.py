@@ -3,14 +3,15 @@ import asyncio
 import uvicorn
 import signal
 from typing import Any, Dict, List
-from src.kalytical.models.runtime_models import IncubatingPipelineModel
+
+from models import IncubatingPipelineModel
 from fastapi import Depends, FastAPI, HTTPException
 from datetime import datetime
-from src.kalytical.dispatcher import provider_factory, EngineManager, KDispatcher, gen_uuid
-from src.kalytical.auth import RoleChecker
-from src.kalytical.utils import get_logger, KalyticalConfig
-from src.kalytical.models import PipelineModel, PipelineHeaderModel, RunningPipelineModel, JobLifecycleEventBody, LifecycleEventModel
-from src.kalytical.dispatcher import SQS_Poller, IncubatingJobCuller
+from core import provider_factory, EngineManager, KDispatcher, gen_uuid
+from auth import RoleChecker
+from utils import get_logger, KalyticalConfig
+from models import PipelineModel, PipelineHeaderModel, RunningPipelineModel, JobLifecycleEventBody, LifecycleEventModel
+from core import SQS_Poller, IncubatingJobCuller
 
 kalytical_config = KalyticalConfig()
 
@@ -23,15 +24,14 @@ app = FastApi(title=f"Kalytical API - {kalytical_config.env_name}",
 
 
 module_logger = get_logger('facade')
-
+0
 a_data_provider = provider_factory(db_engine=kalytical_config.db_provider)
 
 @app.post("/pipeline/config/list", dependencies=[Depends(RoleChecker(allowed_roles['read']))], response_model=List[PipelineHeaderModel])
 async def list_pipeline_definitions(pipeline_prefix: str, filter_tags: str):
-    return await a_data_provider.list_pipelines(pipeline_prefix=pipeline_prefix, filter_tags=filter_tags)
-
+    pass
 @app.get("/pipeline/config/describe", dependencies=[Depends(RoleChecker(allowed_roles=['read']))], response_model=PipelineModel)
-async def describe_pipeline_definition(pipeline_uuid: str) -> PipelineModel)
+async def describe_pipeline_definition(pipeline_uuid: str) -> PipelineModel:
     result = await a_data_provider.describe_pipeline(pipeline_uuid=pipeline_uuid)
     if result is None:
         raise HTTPException(status_code=404, detail=f'No pipeline_uuid={pipeline_uuid} definition was found')
@@ -104,8 +104,8 @@ async def report_pipeline_event(lifecycle_event: LifecycleEventModel) -> List[Ru
     return await a_dispatcher.dispatch(lifecycle_event=lifecycle_event)
 
 @app.get("/pipeline/dispatcher/event/history", dependencies=[Depends(RoleChecker(allowed_roles=['read']))], response_model=List[dict])
-async def get_job_lifecycle_event_history(since_seconds: int = 1000, max_records: int = 20, pipeline_uuid: str = None, event_type: str = 'job_exec_update', event_subtype: str = None, source_uuid: str = None, exec_uuid: str = None)
-
+async def get_job_lifecycle_event_history(since_seconds: int = 1000, max_records: int = 20, pipeline_uuid: str = None, event_type: str = 'job_exec_update', event_subtype: str = None, source_uuid: str = None, exec_uuid: str = None):
+    pass
 @app.get("/pipeline/incubation/update", dependencies=[Depends(RoleChecker(allowed_roles=['admin']))], response_model=IncubatingPipelineModel)
 async def update_incubating_pipeline_dependencies(obj_id: str, update_deps_dict: Dict[str, str]) -> List[IncubatingPipelineModel]:
     result = await a_data_provider.update_incubating_pipelines(obj_id=obj_id, new_update_deps_dict=update_deps_dict)
@@ -126,7 +126,7 @@ async def get_current_kalytical_config() -> dict:
     return kalytical_config.dict()
 
 
-def shutdown() 
+def shutdown():
     module_logger.warn("attempting graceful shutdown")
     mq_poller.shutdown()
     job_culler.shutdown()

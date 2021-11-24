@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 from typing import Any, Dict, List
 import re
 from pymongo.collection import ReturnDocument
-from src.kalytical.models import PipelineModel, PipelineHeaderModel, IncubatingPipelineModel
-from src.kalytical.core.cron import K8sCronProvider
-from src.kalytical.utils import get_logger, KalyticalConfig, retry
+from .. models import PipelineModel, PipelineHeaderModel, IncubatingPipelineModel
+from . core import K8sCronProvider
+from . utils import get_logger, KalyticalConfig, retry
 from bson.objectid import ObjectId
 import copy
 

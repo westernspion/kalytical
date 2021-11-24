@@ -28,8 +28,8 @@ class PipelineHeaderModel(BaseModel):
     engine: str
     engine_args: dict  # TODO we can put engine specific validation in here
     schedule: Optional[str]
-    triggers_on: Optionatl[TriggersOnModel]
-    scheduler_tracking_id: Optionatl[str]
+    triggers_on: Optional[TriggersOnModel]
+    scheduler_tracking_id: Optional[str]
     tags: Optional[Dict[str, str]] = {}
 
     @validator('pipeline_uuid')
@@ -37,11 +37,11 @@ class PipelineHeaderModel(BaseModel):
         regex_str = '^[a-z0-9-]+$'
         regex = re.compile(regex_str)
         if regex.match(v) is None:
-            raise ValueError(f"The pipeline_uuid did not match the allowed regex={regex_str")
+            raise ValueError(f"The pipeline_uuid did not match the allowed regex={regex_str}")
         return v
 
     # TODO validation trhat an engine exists, checking subclasses of AbstractEngine causes a circule import
 
 
 class PipelineModel(PipelineHeaderModel):
-    pipeline_body: Optional[dicts]
+    pipeline_body: Optional[dict]
