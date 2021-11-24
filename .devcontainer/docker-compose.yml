@@ -8,6 +8,6 @@ services:
       target: development
     volumes:
       - .:/workspace:cached
-      - C:\Users\brads\.ssh:/root/.ssh/:ro
+      - C:\Users\brads\.ssh:/root/.ssh/
     command: /bin/sh -c "while sleep 1000; do :; done"
  
